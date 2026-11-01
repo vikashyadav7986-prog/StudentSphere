@@ -1,0 +1,6 @@
+{
+  "name": "StudentSphere - University Platform",
+  "description": "Unified university platform for academic repository notes, lost & found recovery engine, campus announcements, and database management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
