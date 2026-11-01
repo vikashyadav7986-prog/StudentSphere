@@ -102,23 +102,23 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>Announcements</span>
             </button>
 
-            {/* Database Studio Tab */}
-            <button
-              onClick={() => onNavigate('database')}
-              className={`px-4 py-2 rounded-xl text-sm font-medium transition flex items-center gap-2 cursor-pointer ${
-                currentView === 'database'
-                  ? 'text-white bg-emerald-600/30 border border-emerald-500/40 text-emerald-300'
-                  : 'text-emerald-400 hover:text-emerald-300 hover:bg-emerald-950/40'
-              }`}
-            >
-              <i className="fa-solid fa-database"></i>
-              <span>Database Studio</span>
-              {totalRecordsCount > 0 && (
-                <span className="text-[10px] bg-emerald-950 text-emerald-400 px-1.5 py-0.5 rounded-full border border-emerald-700/60 font-mono">
-                  {totalRecordsCount}
+            {/* Database Studio Tab - Only visible to admin after admin login */}
+            {currentUser?.role === 'admin' && (
+              <button
+                onClick={() => onNavigate('database')}
+                className={`px-4 py-2 rounded-xl text-sm font-medium transition flex items-center gap-2 cursor-pointer ${
+                  currentView === 'database'
+                    ? 'text-white bg-purple-600/30 border border-purple-500/40 text-purple-300'
+                    : 'text-purple-400 hover:text-purple-300 hover:bg-purple-950/40'
+                }`}
+              >
+                <i className="fa-solid fa-database text-purple-400"></i>
+                <span>Database Studio</span>
+                <span className="text-[9px] bg-purple-950 text-purple-300 px-1.5 py-0.5 rounded-full border border-purple-700/60 font-mono uppercase">
+                  Admin
                 </span>
-              )}
-            </button>
+              </button>
+            )}
           </nav>
 
           {/* Action Buttons & Authentication */}
@@ -265,16 +265,24 @@ export const Navbar: React.FC<NavbarProps> = ({
             <i className="fa-solid fa-bullhorn w-6 text-teal-400"></i>
             <span>Announcements</span>
           </button>
-          <button
-            onClick={() => {
-              onNavigate('database');
-              setMobileMenuOpen(false);
-            }}
-            className="w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-emerald-400 hover:bg-emerald-900/50 flex items-center gap-2"
-          >
-            <i className="fa-solid fa-database w-6 text-emerald-400"></i>
-            <span>Database Studio ({totalRecordsCount} records)</span>
-          </button>
+          {/* Database Studio Tab in Mobile - Only visible to admin */}
+          {currentUser?.role === 'admin' && (
+            <button
+              onClick={() => {
+                onNavigate('database');
+                setMobileMenuOpen(false);
+              }}
+              className="w-full text-left px-3 py-2.5 rounded-lg text-base font-medium text-purple-400 hover:bg-purple-900/30 flex items-center justify-between"
+            >
+              <div className="flex items-center gap-2">
+                <i className="fa-solid fa-database w-6 text-purple-400"></i>
+                <span>Database Studio</span>
+              </div>
+              <span className="text-[10px] bg-purple-950 text-purple-300 px-2 py-0.5 rounded-full border border-purple-700 font-mono">
+                ADMIN
+              </span>
+            </button>
+          )}
 
           <div className="pt-2 flex flex-col gap-2">
             <button
